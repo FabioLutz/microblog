@@ -2,8 +2,6 @@ package org.mb.microblog.model;
 
 import jakarta.persistence.*;
 
-import java.time.LocalDate;
-
 @Entity(name = "tb_posts")
 public class Post {
     @Id
@@ -13,10 +11,9 @@ public class Post {
     private String title;
     @Column
     private String content;
-    @Column(nullable = false)
-    private LocalDate publicationDate;
-    @OneToOne(cascade = CascadeType.ALL)
-    private User owner;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id")
+    private User user;
 
     public Long getId() {
         return id;
@@ -42,19 +39,11 @@ public class Post {
         this.content = content;
     }
 
-    public LocalDate getPublicationDate() {
-        return publicationDate;
+    public User getUser() {
+        return user;
     }
 
-    public void setPublicationDate(LocalDate publicationDate) {
-        this.publicationDate = publicationDate;
-    }
-
-    public User getOwner() {
-        return owner;
-    }
-
-    public void setOwner(User owner) {
-        this.owner = owner;
+    public void setUser(User user) {
+        this.user = user;
     }
 }

@@ -2,6 +2,8 @@ package org.mb.microblog.model;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity(name = "tb_users")
 public class User {
     @Id
@@ -9,6 +11,8 @@ public class User {
     private Long id;
     @Column(nullable = false, length = 100)
     private String name;
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    private List<Post> posts;
 
     public Long getId() {
         return id;
@@ -24,5 +28,13 @@ public class User {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<Post> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(List<Post> posts) {
+        this.posts = posts;
     }
 }
